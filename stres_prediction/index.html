@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Tingkat Stres Mahasiswa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sistem Prediktif Tingkat Stres Mahasiswa</h1>
+            <p>Menggunakan Machine Learning (Dengan Algoritma Naive Bayes)</p>
+        </header>
+
+        <main class="content-wrapper">
+            <section class="card form-section">
+                <h2><span class="icon">📝</span> Input Data Mahasiswa</h2>
+                <form id="stressForm">
+                    <div class="input-group">
+                        <label for="semester">Tingkat Semester:</label>
+                        <select id="semester" required>
+                            <option value="Awal (1-2)">Awal (1-2)</option>
+                            <option value="Tengah (3-6)">Tengah (3-6)</option>
+                            <option value="Akhir (7-8+)">Akhir (7-8+)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="tidur">Rata-rata Jam Tidur / Hari:</label>
+                        <select id="tidur" required>
+                            <option value="3">3 Jam atau kurang</option>
+                            <option value="4">4 Jam</option>
+                            <option value="5">5 Jam</option>
+                            <option value="6">6 Jam</option>
+                            <option value="7">7 Jam</option>
+                            <option value="8">8 Jam atau lebih</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="sks">Jumlah SKS / Beban Tugas Aktif:</label>
+                        <input type="number" id="sks" min="10" max="24" value="20" required>
+                        <small>Rentang dataset: 10 - 24 SKS</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="percintaan">Status Percintaan:</label>
+                        <select id="percintaan" required>
+                            <option value="Jomblo (Santai)">Jomblo (Santai)</option>
+                            <option value="Jomblo (Stres)">Jomblo (Stres)</option>
+                            <option value="Stabil">Stabil dengan Pasangan</option>
+                            <option value="Toksik">Hubungan Toksik (Toxic)</option>
+                            <option value="Putus Cinta">Baru Putus Cinta</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="keluarga">Hubungan Keluarga:</label>
+                        <select id="keluarga" required>
+                            <option value="Harmonis">Harmonis</option>
+                            <option value="Renggang">Renggang / Konflik</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="finansial">Memiliki Masalah Finansial?</label>
+                        <select id="finansial" required>
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </div>
+
+                    <button type="button" onclick="hitungPrediksi()" class="btn-submit">Analisis & Buka Black Box</button>
+                </form>
+            </section>
+
+            <section class="result-section" id="resultContainer" style="display: none;">
+                <div class="card output-card">
+                    <h2><span class="icon">🎯</span> Hasil Prediksi Akhir</h2>
+                    <div id="hasilFinalText" class="prediction-badge">MENGHITUNG...</div>
+                </div>
+
+                <div class="card math-card">
+                    <h2><span class="icon">🧮</span> Transparansi Perhitungan (Buka Black Box)</h2>
+                    
+                    <div class="math-block">
+                        <h3>1. Probabilitas Prior Data P(Ck)</h3>
+                        <p>Diambil dari sebaran riil dataset asli (Total: 200 data):</p>
+                        <ul>
+                            <li>P(Rendah) = 64 / 200 = 0.32</li>
+                            <li>P(Sedang) = 80 / 200 = 0.40</li>
+                            <li>P(Tinggi) = 56 / 200 = 0.28</li>
+                        </ul>
+                    </div>
+
+                    <div class="math-block">
+                        <h3>2. Perhitungan Probabilitas Kondisional P(Xi | Ck)</h3>
+                        <p>Menggunakan rumus Laplace Smoothing agar tidak menghasilkan probabilitas nol:</p>
+                        <div class="table-responsive" id="perhitunganLangkah">
+                            </div>
+                    </div>
+
+                    <div class="math-block">
+                        <h3>3. Hasil Perkalian Total (Skor Akhir)</h3>
+                        <div id="perkalianFinal">
+                            </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
